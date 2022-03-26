@@ -2,6 +2,17 @@
   "name": "Frozenjs",
   "description": "",
   "version": "1.0.0",
-  "main": "test/index.js",
-  "dependencies": {}
+  "main": "index.js",
+  "scripts": {
+    "linux": "npx pkg index.js -o build/frozen-linux",
+    "mac": "npx pkg index.js -t node17-macos-x64 -o build/frozen-mac",
+    "win": "npx pkg index.js -t node17-win-x64 -o build/frozen.exe",
+    "test": ""
+  },
+  "dependencies": {
+    "lib6": "latest"
+  },
+  "repo": {
+    "tesr": "https://github.com/testgroup/tesr"
+  }
 }

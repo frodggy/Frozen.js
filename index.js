@@ -1,10 +1,17 @@
 // === imports ===
 const { Command } = require('commander');
-const program = new Command();
-const { main } = require('./lib/init')
+const shell = require('shelljs')
 const { cwd } = require('process')
 const {exec} = require('child_process')
-const shell = require('shelljs')
+// === local imports ===
+const { saveJSON, loadJSON } = require('./lib/util/json')
+const { main } = require('./lib/init')
+const { install } = require('./lib/install')
+const { addRepo, removeRepo } = require('./lib/repo')
+const { run } = require('./lib/run')
+
+// === vars ===
+const program = new Command();
 
 // === functions ===
 function execute(command, callback){
@@ -23,27 +30,53 @@ program.command('add')
   .description('installs a package')
   .argument('<package>', 'string to split')
   .action((package, options) => {
-      let pkg = package.split('@', 2)
-      console.log(pkg);
+        install(package)
   });
 
 program.command('init')
   .alias("up")
   .description('creates a frozen package')
-  .action((package, options) => {
+  .action(() => {
       main()
   });
 
 program.command('run')
   .alias("go")
   .description('runs main file')
-  .action((package, options) => {
+  .action(() => {
+      run()      
+  });
+
+program.command('shell')
+  .alias("sh")
+  .argument('<script>', 'string to split')
+  .description('runs scripts from config file')
+  .action((script, options) => {
       try {
-        const config = require(cwd() + '/frozen.config.json')
-        shell.exec(`node ${config.main}`)
+          const config = require(`${cwd()}/frozen.config.json`)
+          
+          let cmd = (`config.scripts.${script}`)
+          shell.exec(eval(cmd))
       } catch (error) {
           console.log(error)
       }
+  });
+
+program.command('add-repo')
+  .alias("arp")
+  .argument('<repo_name>')
+  .argument('<repo_url>')
+  .description('add a download repo')
+  .action((repo_name, repo_url) => {
+      addRepo(repo_name, repo_url)
+  });
+
+program.command('remove-repo')
+  .alias("rrp")
+  .argument('<repo>')
+  .description('removes download repo')
+  .action((repo, options) => {
+      removeRepo(repo)
   });
 
 program.parse();
