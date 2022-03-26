@@ -6,7 +6,6 @@ const { cwd } = require('process')
 const {exec} = require('child_process')
 const shell = require('shelljs')
 
-const config = require(cwd() + '/frozen.config.json')
 // === functions ===
 function execute(command, callback){
     exec(command, function(error, stdout, stderr){ callback(stdout); });
@@ -40,7 +39,8 @@ program.command('run')
   .description('runs main file')
   .action((package, options) => {
       try {
-        
+        const config = require(cwd() + '/frozen.config.json')
+        shell.exec(`node ${config.main}`)
       } catch (error) {
           console.log(error)
       }
