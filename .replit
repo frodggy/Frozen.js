@@ -1,0 +1,20 @@
+compile = ["./.config/build.sh"]
+run = ["node", "index.js", "init"]
+
+hidden = [".build", ".config"]
+
+entrypoint = "index.js"
+
+[packager]
+language = "nodejs"
+
+[packager.features]
+enabledForHosting = false
+packageSearch = true
+guessImports = true
+
+[env]
+XDG_CONFIG_HOME = "/home/runner/.config"
+
+[nix]
+channel = "stable-21_11"

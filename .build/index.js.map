@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../index.js"],
+  "sourcesContent": ["const { Command } = require('commander');\nconst program = new Command();\nconst { init } = require('./lib/init')\n\n\nprogram\n  .name('frozen')\n  .description('atempt on of a package manager')\n  .version('0.1.0');\n\nprogram.command('add')\n  .alias(\"install\")\n  .description('installs a package')\n  .argument('<package>', 'string to split')\n  .action((package, options) => {\n      let pkg = package.split('@', 2)\n      console.log(pkg);\n  });\n\nprogram.command('init')\n  .alias(\"up\")\n  .description('creates a frozen package')\n  .argument('[dir]', 'the directory of the project')\n  .action((package, options) => {\n      init()\n  });\n\nprogram.parse();"],
+  "mappings": "AAAA,MAAM,EAAE,YAAY,QAAQ;AAC5B,MAAM,UAAU,IAAI;AACpB,MAAM,EAAE,SAAS,QAAQ;AAGzB,QACG,KAAK,UACL,YAAY,kCACZ,QAAQ;AAEX,QAAQ,QAAQ,OACb,MAAM,WACN,YAAY,sBACZ,SAAS,aAAa,mBACtB,OAAO,CAAC,UAAS,YAAY;AAC1B,MAAI,MAAM,SAAQ,MAAM,KAAK;AAC7B,UAAQ,IAAI;AAAA;AAGlB,QAAQ,QAAQ,QACb,MAAM,MACN,YAAY,4BACZ,SAAS,SAAS,gCAClB,OAAO,CAAC,UAAS,YAAY;AAC1B;AAAA;AAGN,QAAQ;",
+  "names": []
+}

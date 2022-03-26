@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../test/index.js"],
+  "sourcesContent": ["const { cwd } = require('process')\n\nconsole.log(cwd() + '/frozen.config.json')"],
+  "mappings": "AAAA,MAAM,EAAE,QAAQ,QAAQ;AAExB,QAAQ,IAAI,QAAQ;",
+  "names": []
+}
